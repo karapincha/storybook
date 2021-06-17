@@ -15,7 +15,8 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:generate-output": "jest --json --config=jest.addon-config.js --outputFile=addon-jest.testresults.json || true",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall": "ngcc --source ../../node_modules"
   },
   "dependencies": {
     "@angular/common": "^11.2.14",
