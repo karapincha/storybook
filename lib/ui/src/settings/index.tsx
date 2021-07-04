@@ -40,7 +40,7 @@ const TabBarButton = React.memo<{
 const Content = styled(ScrollArea)(
   {
     position: 'absolute',
-    top: 40,
+    top: 80,
     left: 0,
     right: 0,
     bottom: 0,

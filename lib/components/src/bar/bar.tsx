@@ -40,10 +40,10 @@ export const Bar = styled(({ children, className }) => (
     {children}
   </ScrollArea>
 ))(
-  ({ theme }) => ({
+  ({ theme, isTopToolBar }) => ({
     color: theme.barTextColor,
     width: '100%',
-    height: 40,
+    height: isTopToolBar ? theme.barHeight : 40,
     flexShrink: 0,
     overflow: 'auto',
     overflowY: 'hidden',
@@ -58,31 +58,35 @@ export const Bar = styled(({ children, className }) => (
 );
 Bar.displayName = 'Bar';
 
-const BarInner = styled.div<{ bgColor: string }>(({ bgColor }) => ({
+const BarInner = styled.div<{ bgColor: string; isTopToolBar?: boolean }>(({ bgColor }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   position: 'relative',
   flexWrap: 'nowrap',
   flexShrink: 0,
-  height: 40,
   backgroundColor: bgColor || '',
+  alignItems: 'center',
 }));
 
 export interface FlexBarProps {
   border?: boolean;
+  isTopToolBar?: boolean;
   children?: any;
   backgroundColor?: string;
 }
 
+// Kasun Note: This Applies everywhere
+
 export const FlexBar: FunctionComponent<FlexBarProps> = ({
   children,
   backgroundColor,
+  isTopToolBar,
   ...rest
 }) => {
   const [left, right] = Children.toArray(children);
   return (
-    <Bar {...rest}>
-      <BarInner bgColor={backgroundColor}>
+    <Bar isTopToolBar={isTopToolBar} {...rest}>
+      <BarInner bgColor={backgroundColor} isTopToolBar={isTopToolBar}>
         <Side left>{left}</Side>
         {right ? <Side right>{right}</Side> : null}
       </BarInner>

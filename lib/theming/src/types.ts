@@ -27,6 +27,7 @@ export interface ThemeVars {
   barTextColor?: string;
   barSelectedColor?: string;
   barBg?: string;
+  barHeight?: number;
 
   // Form colors
   inputBg?: string;

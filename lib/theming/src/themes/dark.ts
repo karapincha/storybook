@@ -27,6 +27,7 @@ const theme: ThemeVars = {
   barTextColor: '#999999',
   barSelectedColor: color.secondary,
   barBg: color.darkest,
+  barHeight: 60,
 
   // Form colors
   inputBg: '#3f3f3f',

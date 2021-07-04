@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo, FunctionComponent } from 'react';
 
-import { styled } from '@storybook/theming';
+import { styled, withTheme, Theme } from '@storybook/theming';
 
 import { FlexBar, IconButton, Icons, Separator, TabButton, TabBar } from '@storybook/components';
 import { Consumer, Combo, API, Story, Group, State, merge } from '@storybook/api';
@@ -26,17 +26,24 @@ const Bar: FunctionComponent<{ shown: boolean } & Record<string, any>> = ({ show
   <FlexBar {...props} />
 );
 
+// KP Note: This is Top Toolbar
+
 export const Toolbar = styled(Bar)(
   {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
+    zIndex: 4,
     transition: 'transform .2s linear',
   },
   ({ shown }) => ({
     transform: shown ? 'translateY(0px)' : 'translateY(-40px)',
-  })
+  }),
+  {
+    background: 'rgba(255, 255, 255, 0.8)',
+    backdropFilter: 'saturate(180%) blur(32px)',
+  }
 );
 
 const fullScreenMapper = ({ api, state }: Combo) => ({
@@ -140,16 +147,30 @@ export interface ToolData {
   story: Story | Group;
 }
 
+// KP Note: This is added by KP
+interface ThemedToolBarProps {
+  theme: Theme;
+  left: any;
+  right: any;
+  isShown: any;
+}
+
+const ThemedToolBar = withTheme(({ theme, left, right, isShown, ...props }: ThemedToolBarProps) => {
+  return (
+    <Toolbar key="toolbar" shown={isShown} border theme={theme} {...props} isTopToolBar>
+      <Tools key="left" list={left} />
+      <Tools key="right" list={right} />
+    </Toolbar>
+  );
+});
+
+// KP Note: This is Top Toolbar
+
 export const ToolRes: FunctionComponent<ToolData & RenderData> = React.memo<ToolData & RenderData>(
   ({ api, story, tabs, isShown, location, path, viewMode }) => {
     const { left, right } = useTools(api.getElements, tabs, viewMode, story, location, path);
 
-    return left || right ? (
-      <Toolbar key="toolbar" shown={isShown} border>
-        <Tools key="left" list={left} />
-        <Tools key="right" list={right} />
-      </Toolbar>
-    ) : null;
+    return left || right ? <ThemedToolBar left={left} right={right} isShown={isShown} /> : null;
   }
 );
 

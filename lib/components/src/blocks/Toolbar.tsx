@@ -75,6 +75,8 @@ const Bar = styled(FlexBar)({
   transition: 'transform .2s linear',
 });
 
+// Story Toolbar. (Not TOP ToolBar)
+
 export const Toolbar: FunctionComponent<ToolbarProps> = ({
   storyId,
   baseUrl,

@@ -114,7 +114,6 @@ export const Sidebar: FunctionComponent<SidebarProps> = React.memo(
         <CustomScrollArea vertical>
           <StyledSpaced row={1.6}>
             <Heading className="sidebar-header" menuHighlighted={menuHighlighted} menu={menu} />
-
             <Search
               dataset={dataset}
               isLoading={isLoading}

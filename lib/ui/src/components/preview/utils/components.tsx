@@ -1,13 +1,15 @@
-import { styled } from '@storybook/theming';
+import React from 'react';
+import { styled, withTheme } from '@storybook/theming';
 import { Link } from '@storybook/router';
 
-export const FrameWrap = styled.div<{ offset: number }>(({ offset }) => ({
+export const FrameWrap = styled.div<{ offset: number }>(({ offset, theme }) => ({
   position: 'absolute',
   overflow: 'auto',
   left: 0,
   right: 0,
   bottom: 0,
-  top: offset,
+  top: 0,
+  paddingTop: theme.barHeight,
   zIndex: 3,
   transition: 'all 0.1s linear',
   height: `calc(100% - ${offset}px)`,
@@ -29,7 +31,7 @@ export const DesktopOnly = styled.span({
 
 export const IframeWrapper = styled.div(({ theme }) => ({
   position: 'absolute',
-  top: 0,
+  top: 40,
   left: 0,
   bottom: 0,
   right: 0,
